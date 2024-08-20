@@ -34,13 +34,13 @@ public class SinglyLinkedList {
     }
 
     // Inserts a node at the start. i.e. Before head
-    public void InsertStart(ListNode node) {
+    public void InsertHead(ListNode node) {
         node.next = head;
         head = node;
     }
 
     // Inserts a node at the end
-    public void InsertLast(ListNode node) {
+    public void Insert(ListNode node) {
         ListNode currNode = head;
         while (currNode.next != null) {
             currNode = currNode.next;
@@ -61,13 +61,47 @@ public class SinglyLinkedList {
         node.next = temp;
     }
 
+    //Deletes a node at the start
+    public void DeleteHead(){
+        ListNode temp = head.next;
+        head.next = null;
+        head = temp;
+    }
+
+    //Deletes a node at the end
+    public void DeleteEnd(){
+        ListNode currNode = head;
+        while(currNode.next.next!=null){
+            currNode = currNode.next;
+        }
+        currNode.next = null;
+    }
+
+    //Deleting a node at a certain positionx
+    public void DeleteAt(int position){
+        ListNode currNode = head;
+        int count = 1;
+        while(count<position-1){
+            currNode = currNode.next;
+        }
+        ListNode temp = currNode.next;
+        currNode.next = temp.next;
+        temp.next = null;
+    }
 
 
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         singlyLinkedList.head = new ListNode(10);
-        singlyLinkedList.InsertLast(new ListNode(30));
+        singlyLinkedList.Insert(new ListNode(30));
+        
+        singlyLinkedList.Insert(new ListNode(40));
         singlyLinkedList.InsertAt(new ListNode(20),2);
+
+        singlyLinkedList.display();
+        //singlyLinkedList.DeleteHead();
+       // singlyLinkedList.DeleteEnd();
+        singlyLinkedList.DeleteAt(2);
         singlyLinkedList.display();
         System.out.println(singlyLinkedList.length());
     }
