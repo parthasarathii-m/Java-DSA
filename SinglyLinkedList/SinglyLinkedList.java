@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class SinglyLinkedList {
     private ListNode head; // Holds the SinglyLinked List for us
 
@@ -63,7 +61,7 @@ public class SinglyLinkedList {
         node.next = temp;
     }
 
-    
+
 
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
