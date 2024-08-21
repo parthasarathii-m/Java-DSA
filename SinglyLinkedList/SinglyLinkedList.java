@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class SinglyLinkedList {
     private ListNode head; // Holds the SinglyLinked List for us
     private int size =0 ;
@@ -133,6 +135,19 @@ public class SinglyLinkedList {
         return false;
     }
 
+    public void Reverse(){
+        ListNode currNode = head;
+        ListNode prev = null;
+        ListNode next = null;
+        while(currNode!=null){
+            next = currNode.next;
+            currNode.next = prev;
+            prev = currNode;
+            currNode = next;
+        }
+        head = prev;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         singlyLinkedList.InsertHead(new ListNode(10));
@@ -148,5 +163,8 @@ public class SinglyLinkedList {
         singlyLinkedList.display();
         System.out.println(singlyLinkedList.Length());
         System.out.println(singlyLinkedList.Search(20));
+
+        singlyLinkedList.Reverse();
+        singlyLinkedList.display();
     }
 }
