@@ -1,5 +1,6 @@
 public class SinglyLinkedList {
     private ListNode head; // Holds the SinglyLinked List for us
+    private int size =0 ;
 
     private static class ListNode {
         private int data;
@@ -24,33 +25,48 @@ public class SinglyLinkedList {
 
     // Returns the length of the singlyLinkedList
     public int length() {
-        int length = 0;
-        ListNode currNode = head;
-        while (currNode != null) {
-            currNode = currNode.next;
-            length++;
-        }
-        return length;
+        return size;
     }
 
     // Inserts a node at the start. i.e. Before head
     public void InsertHead(ListNode node) {
-        node.next = head;
-        head = node;
+        if (head == null) {
+            head = node;
+        } else {
+            node.next = head;
+            head = node;
+        }
+        size++;
+
     }
 
     // Inserts a node at the end
     public void Insert(ListNode node) {
-        ListNode currNode = head;
-        while (currNode.next != null) {
-            currNode = currNode.next;
+        if (head == null) {
+            head = node;
+        } 
+        else {
+            ListNode currNode = head;
+            while (currNode.next != null) {
+                currNode = currNode.next;
+            }
+            currNode.next = node;
         }
-        currNode.next = node;
+        size++;
+
     }
 
     // Inserts at a certain position
     public void InsertAt(ListNode node, int position) {
-        int count = 1; //Assuming the first position as 1 not 0 like in arrays 
+        if(position<=0 || node == null){
+            return;
+        }
+        if(position==1){
+            InsertHead(node);
+            size++;
+            return;
+        }
+        int count = 1; // Assuming the first position as 1 not 0 like in arrays
         ListNode currNode = head;
         while (count < position - 1) {
             count++;
@@ -59,48 +75,64 @@ public class SinglyLinkedList {
         ListNode temp = currNode.next;
         currNode.next = node;
         node.next = temp;
+        size++;
     }
 
-    //Deletes a node at the start
-    public void DeleteHead(){
-        ListNode temp = head.next;
-        head.next = null;
-        head = temp;
-    }
-
-    //Deletes a node at the end
-    public void DeleteEnd(){
-        ListNode currNode = head;
-        while(currNode.next.next!=null){
-            currNode = currNode.next;
+    // Deletes a node at the start
+    public void DeleteHead() {
+        if (head != null) {
+            ListNode temp = head.next;
+            head.next = null;
+            head = temp;
+            size--;
         }
-        currNode.next = null;
     }
 
-    //Deleting a node at a certain positionx
-    public void DeleteAt(int position){
+    // Deletes a node at the end
+    public void DeleteEnd() {
+        if (head != null) {
+            ListNode currNode = head;
+            while (currNode.next.next != null) {
+                currNode = currNode.next;
+            }
+            currNode.next = null;
+            size--;
+        }
+
+    }
+
+    // Deleting a node at a certain position
+    public void DeleteAt(int position) {
+
+        if(head==null || position<=0){
+            return;
+        }
+        if(position==1){
+            DeleteHead();
+            return;
+        }
         ListNode currNode = head;
         int count = 1;
-        while(count<position-1){
+        while (count < position - 1) {
             currNode = currNode.next;
         }
         ListNode temp = currNode.next;
         currNode.next = temp.next;
         temp.next = null;
+        size--;
     }
-
 
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
-        singlyLinkedList.head = new ListNode(10);
+        singlyLinkedList.InsertHead(new ListNode(10));
         singlyLinkedList.Insert(new ListNode(30));
-        
+        singlyLinkedList.InsertHead(new ListNode(0));
         singlyLinkedList.Insert(new ListNode(40));
-        singlyLinkedList.InsertAt(new ListNode(20),2);
+        singlyLinkedList.InsertAt(new ListNode(20), 3);
 
         singlyLinkedList.display();
-        //singlyLinkedList.DeleteHead();
-       // singlyLinkedList.DeleteEnd();
+        // singlyLinkedList.DeleteHead();
+        // singlyLinkedList.DeleteEnd();
         singlyLinkedList.DeleteAt(2);
         singlyLinkedList.display();
         System.out.println(singlyLinkedList.length());
