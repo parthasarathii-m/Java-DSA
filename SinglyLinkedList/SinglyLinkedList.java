@@ -24,7 +24,7 @@ public class SinglyLinkedList {
     }
 
     // Returns the length of the singlyLinkedList
-    public int length() {
+    public int Length() {
         return size;
     }
 
@@ -122,6 +122,17 @@ public class SinglyLinkedList {
         size--;
     }
 
+    public boolean Search(int searchKey){
+        ListNode currNode = head;
+        while(currNode!=null){
+            if(currNode.data == searchKey){
+                return true;
+            }
+             currNode = currNode.next;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         singlyLinkedList.InsertHead(new ListNode(10));
@@ -135,6 +146,7 @@ public class SinglyLinkedList {
         // singlyLinkedList.DeleteEnd();
         singlyLinkedList.DeleteAt(2);
         singlyLinkedList.display();
-        System.out.println(singlyLinkedList.length());
+        System.out.println(singlyLinkedList.Length());
+        System.out.println(singlyLinkedList.Search(20));
     }
 }
