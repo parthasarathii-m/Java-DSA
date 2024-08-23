@@ -1,8 +1,8 @@
-import java.util.List;
+package SinglyLinkedList;
 
 public class SinglyLinkedList {
     private ListNode head; // Holds the SinglyLinked List for us
-    private int size =0 ;
+    private int size = 0;
 
     private static class ListNode {
         private int data;
@@ -46,8 +46,7 @@ public class SinglyLinkedList {
     public void Insert(ListNode node) {
         if (head == null) {
             head = node;
-        } 
-        else {
+        } else {
             ListNode currNode = head;
             while (currNode.next != null) {
                 currNode = currNode.next;
@@ -60,10 +59,10 @@ public class SinglyLinkedList {
 
     // Inserts at a certain position
     public void InsertAt(ListNode node, int position) {
-        if(position<=0 || node == null){
+        if (position <= 0 || node == null) {
             return;
         }
-        if(position==1){
+        if (position == 1) {
             InsertHead(node);
             size++;
             return;
@@ -106,10 +105,10 @@ public class SinglyLinkedList {
     // Deleting a node at a certain position
     public void DeleteAt(int position) {
 
-        if(head==null || position<=0){
+        if (head == null || position <= 0) {
             return;
         }
-        if(position==1){
+        if (position == 1) {
             DeleteHead();
             return;
         }
@@ -124,28 +123,44 @@ public class SinglyLinkedList {
         size--;
     }
 
-    public boolean Search(int searchKey){
+    public boolean Search(int searchKey) {
         ListNode currNode = head;
-        while(currNode!=null){
-            if(currNode.data == searchKey){
+        while (currNode != null) {
+            if (currNode.data == searchKey) {
                 return true;
             }
-             currNode = currNode.next;
+            currNode = currNode.next;
         }
         return false;
     }
 
-    public void Reverse(){
+    public void Reverse() {
         ListNode currNode = head;
         ListNode prev = null;
         ListNode next = null;
-        while(currNode!=null){
+        while (currNode != null) {
             next = currNode.next;
             currNode.next = prev;
             prev = currNode;
             currNode = next;
         }
         head = prev;
+    }
+
+    public int nthNodeFromEnd(int n) {
+        int count = 0;
+        ListNode mainPtr = head;
+        ListNode refPtr = head;
+
+        while (count < n) {
+            count++;
+            refPtr = refPtr.next;
+        }
+        while (refPtr != null) {
+            refPtr = refPtr.next;
+            mainPtr = mainPtr.next;
+        }
+        return mainPtr.data;
     }
 
     public static void main(String[] args) {
@@ -166,5 +181,7 @@ public class SinglyLinkedList {
 
         singlyLinkedList.Reverse();
         singlyLinkedList.display();
+
+        System.out.println(singlyLinkedList.nthNodeFromEnd(4));
     }
 }
